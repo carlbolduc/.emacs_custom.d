@@ -1,5 +1,8 @@
 #+TITLE: Carl Bolduc's Emacs configuration
 
+To load this config in spacemacs, add this in =dotspacemacs/user-config=:
+=(org-babel-load-file "~/.emacs_custom.d/carl.org")=
+
 * Configuration
 
 #+BEGIN_SRC emacs-lisp
