@@ -1,0 +1,60 @@
+#+TITLE: Carl Bolduc's Emacs configuration
+
+* Configuration
+
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+;; (server-start)
+#+END_SRC
+
+** Backups
+
+This is one of the things people usually want to change right away. By default, Emacs saves backup files in the current directory. These are the files ending in =~= that are cluttering up your directory lists. The following code stashes them all in =~/.emacs.d/backups=, where I can find them with =C-x C-f= (=find-file=) if I really need to.
+
+#+BEGIN_SRC emacs-lisp
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+#+END_SRC
+
+Disk space is cheap. Save lots.
+
+#+BEGIN_SRC emacs-lisp
+(setq delete-old-versions -1)
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+#+END_SRC
+
+** Spelling
+
+#+BEGIN_SRC emacs-lisp
+(setq ispell-program-name "aspell")
+#+END_SRC
+
+** Org
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-iswitchb)
+(add-to-list 'auto-mode-alist `(,(rx ".txt" string-end) . org-mode))
+(setq org-capture-templates
+    '(("n" "Note" entry (file+headline "~/Dropbox/org/notes.txt" "Notes")
+             "* %?\n  %i")
+      ("s" "Scrum" entry (file+datetree "~/Dropbox/org/scrum.txt")
+             "**** Carl\n***** Hier\n  - \n***** Aujourd'hui\n  - \n**** Samuel\n***** Hier\n  - \n***** Aujourd'hui\n  - \n**** Henri\n***** Hier\n  - \n***** Aujourd'hui\n  - \n**** Félix\n***** Hier\n  - \n***** Aujourd'hui\n  - ")
+      ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.txt")
+             "* %?\nEntered on %U\n  %i\n  %a")))
+(setq org-agenda-file-regexp "\\`[^.].*\\.txt\\'")
+(setq org-agenda-files '("~/Dropbox/org"))
+#+END_SRC
+
+** Babel
+
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+      'org-babel-load-languages
+      '((emacs-lisp . nil)
+        (sh . t)))
+#+END_SRC
+
