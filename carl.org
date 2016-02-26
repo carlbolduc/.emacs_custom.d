@@ -1,6 +1,7 @@
 #+TITLE: Carl Bolduc's Emacs configuration
 
 To load this config in spacemacs, add this in =dotspacemacs/user-config=:
+
 =(org-babel-load-file "~/.emacs_custom.d/carl.org")=
 
 * Configuration
@@ -8,6 +9,13 @@ To load this config in spacemacs, add this in =dotspacemacs/user-config=:
 #+BEGIN_SRC emacs-lisp
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; (server-start)
+#+END_SRC
+
+** UI
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-mode-line-unicode-symbols nil)
+(setq powerline-default-separator 'bar)
 #+END_SRC
 
 ** Backups
